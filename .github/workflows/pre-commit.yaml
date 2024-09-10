@@ -17,6 +17,14 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.8.3"
+
       - run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
@@ -25,6 +33,9 @@ jobs:
         run: |
           apk --no-cache add tar
           # check python modules installed versions
+          python -m venv venv
+          source venv/bin/activate
+          poetry install
           python -m pip freeze --local
           python app.py &
 
