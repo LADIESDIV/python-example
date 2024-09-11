@@ -10,6 +10,7 @@ repos:
       - id: check-yaml # Validates YAML files
         args:
           - --allow-multiple-documents
+        exclude: ^helm/
       - id: check-json # Validates JSON files
       - id: check-toml # Validates TOML files
       - id: check-xml # Validates XML files

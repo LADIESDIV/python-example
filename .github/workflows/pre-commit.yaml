@@ -44,12 +44,6 @@ jobs:
       - name: fix tar dependency in alpine container image and run app
         run: |
           apk --no-cache add tar
-          # check python modules installed versions
-          python -m venv venv
-          source venv/bin/activate
-          poetry install
-          python -m pip freeze --local
-          python app.py &
 
       - name: Cache pre-commit since we use pre-commit from container
         uses: actions/cache@v4
@@ -59,6 +53,12 @@ jobs:
 
       - name: Execute pre-commit
         run: |
+          # check python modules installed versions
+          python -m venv venv
+          source venv/bin/activate
+          poetry install
+          python -m pip freeze --local
+          python app.py &
           pre-commit run --color=always --show-diff-on-failure -a
 
       - name: kill app

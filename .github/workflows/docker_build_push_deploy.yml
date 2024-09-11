@@ -59,7 +59,7 @@ jobs:
           service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
           create_credentials_file: true
           access_token_lifetime: 3600
-      
+
       - name: "Set up Cloud SDK"
         uses: google-github-actions/setup-gcloud@v2
 
@@ -80,14 +80,15 @@ jobs:
           severity: 'CRITICAL,HIGH'
         env:
           GOOGLE_APPLICATION_CREDENTIAL: ${{ steps.auth.outputs.credentials_file_path }}
-          
+
       - id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: 'hello-cloud-run'
+          region: 'europe-west1'
           image:  '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
 
       - name: 'Use output'
-        run: 'curl "${{ steps.deploy.outputs.url }}"'
+        run: 'curl "${{ steps.deploy.outputs.url }}/list"'
 
 
