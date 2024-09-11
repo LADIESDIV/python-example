@@ -3,7 +3,7 @@ name: Semantic Release
 on:
   push:
     branches:
-      - main
+      - fix/release
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
