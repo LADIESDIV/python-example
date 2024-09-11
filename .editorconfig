@@ -42,6 +42,9 @@ insert_final_newline = unset
 [.github/workflows/release.yml]
 end_of_line = unset
 insert_final_newline = unset
+[docker/tests/unit-test.yaml]
+end_of_line = unset
+insert_final_newline = unset
 
 [Makefile]
 indent_style = tab
