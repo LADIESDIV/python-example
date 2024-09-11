@@ -59,15 +59,17 @@ jobs:
           service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
           create_credentials_file: true
           access_token_lifetime: 60
-      - uses: RafikFarhad/push-to-gcr-github-action@v5-rc1
-        id: buildpushimage
-        with:
-          registry: ${{ env.REGISTRY }}
-          project_id: ${{ env.PROJECT_ID }}
-          image_name: ${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}
-          image_tag: ${{ steps.gettagimage.outputs.TAG_NAME }}
-          dockerfile: ${{ env.PATH_DOCKERFILE }}
-          context: .
+      
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: "Docker auth"
+        run: |-
+          gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+          docker build -f ${{ env.PATH_DOCKERFILE }} -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }} .
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}
+
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
