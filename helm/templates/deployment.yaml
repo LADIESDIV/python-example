@@ -1,20 +1,24 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "basic.fullname" . }}
+  name: {{ template "python-example.fullname" . }}
   labels:
-    app: {{ template "basic.name" . }}
+    app: {{ template "python-example.name" . }}
     appVersion: {{ .Chart.AppVersion | quote }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "python-example.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "basic.name" . }}
+        app: {{ template "python-example.name" . }}
         release: {{ .Release.Name }}
     spec:
       {{- if .Values.runAsUser }}

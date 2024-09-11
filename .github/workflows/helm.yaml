@@ -1,0 +1,24 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  lint-helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Lint Helm
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: helm lint ./.helm/
+      - name: Lint Helm
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: helm plugin install https://github.com/helm-unittest/helm-unittest.git
+      - name: Helm unittest
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: helm unittest ./.helm/

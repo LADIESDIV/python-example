@@ -55,7 +55,7 @@ tests:
       - isKind:
           of: Deployment
       - isAPIVersion:
-          of: extensions/v1beta1
+          of: apps/v1
       - hasDocuments:
           count: 1
       - matchSnapshot:

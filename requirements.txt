@@ -177,9 +177,9 @@ markupsafe==2.1.5 ; python_full_version >= "3.12.5" and python_full_version < "4
 requests==2.32.3 ; python_full_version >= "3.12.5" and python_full_version < "4.0.0" \
     --hash=sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760 \
     --hash=sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6
-setuptools==68.2.2 ; python_full_version >= "3.12.5" and python_full_version < "4.0.0" \
-    --hash=sha256:4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87 \
-    --hash=sha256:b454a35605876da60632df1a60f736524eb73cc47bbc9f3f1ef1b644de74fd2a
+setuptools==70.3.0 ; python_full_version >= "3.12.5" and python_full_version < "4.0.0" \
+    --hash=sha256:f171bab1dfbc86b132997f26a119f6056a57950d058587841a0082e8830f9dc5 \
+    --hash=sha256:fe384da74336c398e0d956d1cae0669bc02eed936cdb1d49b57de1990dc11ffc
 simplejson==3.19.3 ; python_full_version >= "3.12.5" and python_full_version < "4.0.0" \
     --hash=sha256:01c6657485393f2e9b8177c77a7634f13ebe70d5e6de150aae1677d91516ce6b \
     --hash=sha256:0552eb06e7234da892e1d02365cd2b7b2b1f8233aa5aabdb2981587b7cc92ea0 \
