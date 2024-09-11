@@ -1,11 +1,10 @@
 suite: test deployment
 set:
   image:
-    repository: apache
+    repository: europe-west1-docker.pkg.dev
     tag: latest
     pullPolicy: Always
 templates:
-  - templates/configmap.yaml
   - templates/deployment.yaml
 chart:
   version: 9.9.9+test

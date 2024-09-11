@@ -57,6 +57,7 @@ jobs:
           workload_identity_provider: 'projects/585501833219/locations/global/workloadIdentityPools/github-action-sandbox-ldy/providers/github-provider'
           project_id: ${{ env.PROJECT_ID }}
           service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
+          create_credentials_file: true
       - uses: RafikFarhad/push-to-gcr-github-action@v5-rc1
         id: buildpushimage
         with:
