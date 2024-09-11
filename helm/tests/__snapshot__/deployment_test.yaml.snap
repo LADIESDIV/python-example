@@ -1,0 +1,30 @@
+should pass all kinds of assertion:
+  1: |
+    replicas: 1
+    selector:
+      matchLabels:
+        app: python-example
+        release: RELEASE-NAME
+    template:
+      metadata:
+        labels:
+          app: python-example
+          release: RELEASE-NAME
+      spec:
+        containers:
+          - image: europe-west1-docker.pkg.dev:latest
+            imagePullPolicy: Always
+            livenessProbe:
+              httpGet:
+                path: /list
+                port: 8080
+            name: python-example
+            ports:
+              - containerPort: 8080
+            readinessProbe:
+              httpGet:
+                path: /list
+                port: 8080
+            resources: {}
+        securityContext:
+          runAsUser: 1001

@@ -1,0 +1,59 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace # Trims trailing whitespace
+        exclude: ^shared/bats-libs/.*
+      - id: check-yaml # Validates YAML files
+        args:
+          - --allow-multiple-documents
+        exclude: ^helm/
+      - id: check-json # Validates JSON files
+      - id: check-toml # Validates TOML files
+      - id: check-xml # Validates XML files
+      - id: check-added-large-files # Checks for files that are added to the repository that are larger than a threshold
+      - id: check-case-conflict # Checks for files that would conflict in case-insensitive filesystems
+      - id: check-merge-conflict # Checks for files that contain merge conflict strings
+      - id: detect-private-key # Check for the existence of private keys
+      - id: check-executables-have-shebangs # Checks that executables have shebangs
+        exclude: ^shared/bats-libs/.*
+  - repo: local
+    hooks:
+      - id: black
+        name: Check python source code with black formatter
+        entry: poetry run black .
+        require_serial: true
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: isort
+        name: Check python import statements order with isort
+        entry: poetry run isort .
+        require_serial: true
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: ruff
+        name: Check python rules enforced with Ruff
+        entry: poetry run ruff .
+        require_serial: true
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: test
+        name: run test
+        entry: coverage run -m pytest
+        require_serial: true
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: coverage
+        name: run coverage report
+        entry: coverage report -m
+        require_serial: true
+        language: system
+        types: [python]
+        pass_filenames: false

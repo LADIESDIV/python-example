@@ -1,0 +1,64 @@
+name: pre-commit-terraform
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PROJECT_ID: lille-zenbox-adeo-2024
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/antonbabenko/pre-commit-terraform:latest # latest used here for simplicity, not recommended
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          virtualenvs-path: .venv
+          installer-parallel: true
+
+      - run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+
+      - name: fix tar dependency in alpine container image and run app
+        run: |
+          apk --no-cache add tar
+
+      - name: Cache pre-commit since we use pre-commit from container
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-3|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Execute pre-commit
+        run: |
+          # check python modules installed versions
+          python -m venv venv
+          source venv/bin/activate
+          poetry install
+          python -m pip freeze --local
+          pip install EditorConfig
+          python app.py &
+          pre-commit run --color=always --show-diff-on-failure -a
+

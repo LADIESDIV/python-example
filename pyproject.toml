@@ -1,0 +1,127 @@
+[tool.semantic_release]
+version_toml = ["pyproject.toml:tool.poetry.version"]
+upload_to_pypi = false
+upload_to_release = false
+
+[tool.semantic_release.changelog]
+template_dir = "template"
+changelog_file = "CHANGELOG.md"
+exclude_commit_patterns = []
+
+[tool.semantic_release.changelog.environment]
+keep_trailing_newline = true
+newline_sequence = "\n"
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = [
+    "major",
+    "feat",
+    "fix",
+    "chore",
+    ":nut_and_bolt:",
+    ":sparkles:",
+    ":wrench:",
+]
+major_tags = ["major"]
+minor_tags = ["feat", ":sparkles:"]
+patch_tags = ["fix", ":nut_and_bolt:", ":wrench:"]
+
+[project]
+requires-python = ">=3.9"
+
+[tool.poetry]
+name = "python-example"
+version = "0.0.0"
+description = "To be filled"
+keywords = ["example"]
+authors = [
+  "Laetitia Diverchy <laeti.diverchy@gmail.com>",
+]
+readme = "README.md"
+#packages = [
+#    { include = "lib/*/*.py" },
+#]
+
+[tool.poetry.dependencies]
+python = "^3.12.0"
+requests = "^2.31.0"
+Flask = "^3.0.3"
+simplejson = "^3.17"
+setuptools = "70.*"
+urllib3 = "1.26.18"
+
+[tool.poetry.group.dev.dependencies]
+tox = "^3.27"
+pylint = "^2.15"
+black = "^22.10"
+isort = "^5.10"
+coverage = "^4.5.4"
+tavern = "^2.11.0"
+pytest = "^7.2"
+pytest-mock = "^3.11.1"
+freezegun = "^1.2"
+flake8 = "^6.0.0"
+flake8-bugbear = "^22.12"
+flake8-docstrings = "^1.6"
+flake8-typing-imports = "^1.14"
+pep8-naming = "^0.13"
+ruff = "^0.0.243"
+pre-commit = "^3.0.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+src_paths = ["."]
+line_length = 119
+
+[tool.black]
+extend-exclude = ".venv"
+line_length = 119
+
+[tool.ruff]
+
+line-length = 119
+select = [
+  "E",
+  "F",
+  "B",
+  "W",
+  "N",
+  "C90",
+  "I",
+  "D",
+  "UP",
+  "YTT",
+  "S",
+  "A",
+  "COM",
+  "C4",
+  "DTZ",
+  "G",
+  "PTH",
+  "ERA",
+  "PLE",
+  "PLR",
+  "PLW",
+  "RSE",
+  "SLF",
+  "RUF",
+]
+
+ignore = [
+  "D107",
+  "S104"
+]
+
+[tool.ruff.per-file-ignores]
+"tests/*" = ["S101","S105","PLR0913"]
+"BaseModel/ClientPayload/*" = ["N805"]
+".github/scripts/*" = ["PLR0913"]
+
+[tool.ruff.pydocstyle]
+# Use Google-style docstrings.
+convention = "google"
+

@@ -1,0 +1,33 @@
+schemaVersion: '2.0.0'
+
+commandTests:
+  - name: "python installation"
+    command: "which"
+    args: ["python"]
+    expectedOutput: ["/opt/venv/bin/python\n"]
+
+metadataTest:
+  envVars:
+    - key: VIRTUAL_ENV
+      value: /opt/venv
+    - key: FLASK_APP
+      value: app.py
+    - key: PATH
+      value: /opt/venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - key: PYTHONUNBUFFERED
+      value: 1
+  exposedPorts: ["8080"]
+  cmd: ["python", "app.py", "-h", "0.0.0.0"]
+  workdir: "/code"
+  user: "1001"
+
+fileExistenceTests:
+  - name: 'requirements files'
+    path: '/code/requirements.txt'
+    shouldExist: true
+  - name: 'app files'
+    path: '/code/app.py'
+    shouldExist: true
+  - name: 'venv activate file'
+    path: '/opt/venv/bin/activate'
+    shouldExist: true

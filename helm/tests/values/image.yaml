@@ -1,0 +1,4 @@
+image:
+  repository: europe-west1-docker.pkg.dev
+  tag: latest
+  pullPolicy: Always

@@ -1,0 +1,96 @@
+name: Push to GCR GitHub Action
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+  release:
+    types: [created]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PROJECT_ID: lille-zenbox-adeo-2024
+  REGISTRY: europe-west1-docker.pkg.dev
+  IMAGE_NAME: cf-python-example
+  PATH_DOCKERFILE: ./docker/Dockerfile
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  update_requirement:
+    name: update_requirement
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4.4.0
+        with:
+          name: requirements
+          path: requirements.txt
+
+  build-and-push-to-gcr:
+    runs-on: ubuntu-latest
+    needs: update_requirement
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: requirements
+      - name: Github Slug Action
+        uses: rlespinasse/github-slug-action@v4.5.0
+      - name: Get tag image
+        run: |
+          if [[ ${{ github.event_name }} = 'release' ]]; then TAG_NAME=$GITHUB_REF_SLUG; else TAG_NAME=$GITHUB_HEAD_REF_SLUG-${GIT_SHA:0:7}-$(date +%s); fi;
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+        id: gettagimage
+      - name: check tag
+        run: echo ${{ steps.gettagimage.outputs.TAG_NAME }}
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2.1.5
+        with:
+          workload_identity_provider: 'projects/585501833219/locations/global/workloadIdentityPools/github-action-sandbox-ldy/providers/github-provider'
+          project_id: ${{ env.PROJECT_ID }}
+          service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
+          create_credentials_file: true
+          access_token_lifetime: 3600
+
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: "build test push image docker"
+        run: |-
+          gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+          docker build -f ${{ env.PATH_DOCKERFILE }} -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }} .
+          curl -LO https://github.com/GoogleContainerTools/container-structure-test/releases/latest/download/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
+          container-structure-test test --image ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }} --config docker/tests/unit-test.yaml
+          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+        env:
+          GOOGLE_APPLICATION_CREDENTIAL: ${{ steps.auth.outputs.credentials_file_path }}
+
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: 'cr-python-example'
+          region: 'europe-west1'
+          image:  '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
+
+      - name: 'Use output'
+        run: 'curl "${{ steps.deploy.outputs.url }}/list"'
+
+
