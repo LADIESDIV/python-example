@@ -4,8 +4,9 @@ on:
   pull_request:
 
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PROJECT_ID: lille-zenbox-adeo-2024
-
+  
 jobs:
   pre-commit:
     runs-on: ubuntu-latest

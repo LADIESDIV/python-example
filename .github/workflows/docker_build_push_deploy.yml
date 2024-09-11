@@ -11,7 +11,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PROJECT_ID: lille-zenbox-adeo-2024
-  REGISTRY: eu.gcr.io
+  REGISTRY: europe-west1-docker.pkg.dev
   IMAGE_NAME: python-example
   PATH_DOCKERFILE: ./docker/Dockerfile
 

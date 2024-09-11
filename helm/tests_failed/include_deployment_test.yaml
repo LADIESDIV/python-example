@@ -1,0 +1,11 @@
+suite: test deployment that would be fail as it is missing the include
+values:
+  - ./values/image.yaml
+templates:
+  - templates/deployment.yaml
+tests:
+  - it: should not render
+    asserts:
+      - hasDocuments:
+          count: 1
+      - notFailedTemplate: {}
