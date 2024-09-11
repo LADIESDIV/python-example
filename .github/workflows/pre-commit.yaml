@@ -62,7 +62,3 @@ jobs:
           python app.py &
           pre-commit run --color=always --show-diff-on-failure -a
 
-      - name: kill app
-        run: |
-          kill -9 $(ps -aux | grep "python app.py" | cut -d" " -f4 | head -1)
-
