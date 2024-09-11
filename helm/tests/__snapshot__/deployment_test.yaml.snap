@@ -4,21 +4,23 @@ should pass all kinds of assertion:
     template:
       metadata:
         labels:
-          app: basic
+          app: python-example
           release: RELEASE-NAME
       spec:
         containers:
-          - image: apache:latest
+          - image: europe-west1-docker.pkg.dev:latest
             imagePullPolicy: Always
             livenessProbe:
               httpGet:
-                path: /
+                path: /list
                 port: 8080
-            name: basic
+            name: python-example
             ports:
               - containerPort: 8080
             readinessProbe:
               httpGet:
-                path: /
+                path: /list
                 port: 8080
             resources: {}
+        securityContext:
+          runAsUser: 1001

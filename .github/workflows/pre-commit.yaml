@@ -29,25 +29,10 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v2.1.5
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
         with:
-          workload_identity_provider: 'projects/585501833219/locations/global/workloadIdentityPools/github-action-sandbox-ldy/providers/github-provider'
-          project_id: ${{ env.PROJECT_ID }}
-          service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
-          create_credentials_file: true
-      - name: "Set up Cloud SDK"
-        uses: google-github-actions/setup-gcloud@v2
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: ".python-version"
-          cache-dependency-path: "poetry.lock"
-      - name: Setup poetry
-        uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: "1.8.3"
+          version: 1.8.3
 
       - run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE

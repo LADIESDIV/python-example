@@ -12,17 +12,17 @@ tests:
       - contains:
           path: spec.ports
           content:
-            port: 80
-            targetPort: 80
+            port: 8080
+            targetPort: 8080
             protocol: TCP
-            name: nginx
+            name: app
       - equal:
           path: spec.type
           value: ClusterIP
       - equal:
           path: spec.selector
           value:
-            app: basic
+            app: python-example
             release: my-release
   - it: should render right if values given
     set:

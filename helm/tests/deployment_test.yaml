@@ -17,29 +17,29 @@ tests:
     documentIndex: 0
     asserts:
       - equal:
-          path: spec.template.spec.containers[?(@.name == "basic")].image
-          value: apache:latest
+          path: spec.template.spec.containers[?(@.name == "python-example")].image
+          value: europe-west1-docker.pkg.dev:latest
       - notEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].image
+          path: spec.template.spec.containers[?(@.name == "python-example")].image
           value: nginx:stable
       - equal:
           path: metadata.labels.chart
-          value: basic-9.9.9_test
+          value: python-example-9.9.9_test
       - equal:
           path: metadata.labels.appVersion
           value: 9.9.9
       - matchRegex:
           path: metadata.name
-          pattern: ^.*-basic$
+          pattern: ^.*-python-example$
       - notMatchRegex:
           path: metadata.name
           pattern: ^.*-foobar$
       - contains:
-          path: spec.template.spec.containers[?(@.name == "basic")].ports
+          path: spec.template.spec.containers[?(@.name == "python-example")].ports
           content:
             containerPort: 8080
       - notContains:
-          path: spec.template.spec.containers[?(@.name == "basic")].ports
+          path: spec.template.spec.containers[?(@.name == "python-example")].ports
           content:
             containerPort: 80
       - notExists:
@@ -49,15 +49,15 @@ tests:
       - exists:
           path: spec.template
       - isNullOrEmpty:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources
       - isNotNullOrEmpty:
-          path: spec.template.spec.containers[?(@.name == "basic")]
+          path: spec.template.spec.containers[?(@.name == "python-example")]
       - isKind:
           of: Deployment
       - isAPIVersion:
           of: extensions/v1beta1
       - hasDocuments:
-          count: 2
+          count: 1
       - matchSnapshot:
           path: spec
       - isType:
@@ -87,13 +87,13 @@ tests:
           path: spec.template.spec.securityContext.runAsUser
           value: 1286
       - greaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.limits.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.limits.cpu
           value: "1540m"
       - greaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 1.11
       - greaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 1.1
 
   - it: should pass less or equal assertions
@@ -113,26 +113,26 @@ tests:
           path: spec.template.spec.securityContext.runAsUser
           value: 1281
       - lessOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.limits.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.limits.cpu
           value: "1280m"
       - lessOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 1.09
       - lessOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 1.1
       - notLessOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 1.2
       - notGreaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 11.0
       - notGreaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.cpu
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.cpu
           value: 0.1
       - notGreaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.memory
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.memory
           value: "1Mi"
       - notGreaterOrEqual:
-          path: spec.template.spec.containers[?(@.name == "basic")].resources.requests.memory
+          path: spec.template.spec.containers[?(@.name == "python-example")].resources.requests.memory
           value: "101Mi"

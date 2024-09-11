@@ -10,16 +10,16 @@ tests:
     asserts:
       - matchRegex:
           path: metadata.name
-          pattern: RELEASE-NAME-basic
+          pattern: RELEASE-NAME-python-example
       - equal:
           path: metadata.labels.app
-          value: basic
+          value: python-example
       - equal:
           path: metadata.labels.appVersion
           value: 1.0.0
       - equal:
           path: metadata.labels.chart
-          value: basic-0.1.0
+          value: python-example-0.1.0
       - equal:
           path: metadata.labels.release
           value: RELEASE-NAME
@@ -41,7 +41,7 @@ tests:
           value: 1.0.0
       - equal:
           path: metadata.labels.chart
-          value: basic-0.1.0
+          value: python-example-0.1.0
       - equal:
           path: metadata.labels.release
           value: RELEASE-NAME
