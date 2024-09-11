@@ -68,7 +68,7 @@ jobs:
           gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
           docker build -f ${{ env.PATH_DOCKERFILE }} -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }} .
           curl -LO https://github.com/GoogleContainerTools/container-structure-test/releases/latest/download/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
-          container-structure-test test --image europe-west1-docker.pkg.dev/lille-zenbox-adeo-2024/cf-python-example/cf-python-example:fix-testci--1726061181 --config docker/tests/unit-test.yaml
+          container-structure-test test --image ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }} --config docker/tests/unit-test.yaml
           docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}
 
       - name: Run Trivy vulnerability scanner
