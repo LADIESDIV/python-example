@@ -2,7 +2,7 @@
 version_toml = ["pyproject.toml:tool.poetry.version"]
 upload_to_pypi = false
 upload_to_release = false
-[semantic_release.branches.main]
+[tool.semantic_release.branches.main]
 match = "fix/release"
 
 [tool.semantic_release.changelog]
