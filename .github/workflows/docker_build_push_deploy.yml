@@ -69,7 +69,6 @@ jobs:
           docker build -f ${{ env.PATH_DOCKERFILE }} -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }} .
           docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}
 
-
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -81,6 +80,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
         env:
           GOOGLE_APPLICATION_CREDENTIAL: ${{ steps.auth.outputs.credentials_file_path }}
+          
       - id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
