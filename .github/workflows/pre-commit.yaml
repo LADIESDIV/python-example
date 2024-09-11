@@ -36,9 +36,6 @@ jobs:
           virtualenvs-in-project: true
           virtualenvs-path: .venv
           installer-parallel: true
-      
-      - uses: editorconfig-checker/action-editorconfig-checker@main
-        name: install ec
 
       - run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
@@ -61,6 +58,7 @@ jobs:
           source venv/bin/activate
           poetry install
           python -m pip freeze --local
+          pip install EditorConfig
           python app.py &
           pre-commit run --color=always --show-diff-on-failure -a
 
