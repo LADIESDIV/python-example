@@ -3,6 +3,9 @@ name: pre-commit-terraform
 on:
   pull_request:
 
+env:
+  PROJECT_ID: lille-zenbox-adeo-2024
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -17,6 +20,13 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2.1.5
+        with:
+          workload_identity_provider: 'projects/585501833219/locations/global/workloadIdentityPools/github-action-sandbox-ldy/providers/github-provider'
+          project_id: ${{ env.PROJECT_ID }}
+          service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
       - name: "Set up Cloud SDK"
         uses: google-github-actions/setup-gcloud@v2
       - name: Set up Python

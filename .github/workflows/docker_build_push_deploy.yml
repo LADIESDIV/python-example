@@ -57,14 +57,14 @@ jobs:
           workload_identity_provider: 'projects/585501833219/locations/global/workloadIdentityPools/github-action-sandbox-ldy/providers/github-provider'
           project_id: ${{ env.PROJECT_ID }}
           service_account: 'cf-python-example-sa@${{ env.PROJECT_ID }}.iam.gserviceaccount.com'
-      - uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      - uses: RafikFarhad/push-to-gcr-github-action@v5-rc1
         id: buildpushimage
         with:
           registry: ${{ env.REGISTRY }}
           project_id: ${{ env.PROJECT_ID }}
           image_name: ${{ env.IMAGE_NAME }}
           image_tag: ${{ steps.gettagimage.outputs.TAG_NAME }}
-          dockerfile: ${{ env.Path_DOCKERFILE }}
+          dockerfile: ${{ env.PATH_DOCKERFILE }}
           context: .
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
