@@ -2,11 +2,19 @@ name: pre-commit-terraform
 
 on:
   pull_request:
+    branches:
+      - master
+      - main
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PROJECT_ID: lille-zenbox-adeo-2024
-  
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
