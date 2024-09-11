@@ -7,10 +7,6 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-# [Environment]::SetEnvironmentVariable("FLASK_APP", "server.py");
-# py -m flask run
-
-
 class BodyListBeer:
     """List beer."""
 
