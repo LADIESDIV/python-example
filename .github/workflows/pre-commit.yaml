@@ -38,6 +38,10 @@ jobs:
         uses: snok/install-poetry@v1
         with:
           version: 1.8.3
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          virtualenvs-path: .venv
+          installer-parallel: true
 
       - run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE

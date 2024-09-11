@@ -12,7 +12,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PROJECT_ID: lille-zenbox-adeo-2024
   REGISTRY: europe-west1-docker.pkg.dev
-  IMAGE_NAME: python-example
+  IMAGE_NAME: cf-python-example
   PATH_DOCKERFILE: ./docker/Dockerfile
 
 permissions:
@@ -64,14 +64,14 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           project_id: ${{ env.PROJECT_ID }}
-          image_name: ${{ env.IMAGE_NAME }}
+          image_name: ${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}
           image_tag: ${{ steps.gettagimage.outputs.TAG_NAME }}
           dockerfile: ${{ env.PATH_DOCKERFILE }}
           context: .
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
+          image-ref: '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
