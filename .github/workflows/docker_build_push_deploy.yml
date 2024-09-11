@@ -83,7 +83,7 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: 'hello-cloud-run'
-          image:  '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
+          image:  '${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}/${{ env.IMAGE_NAME }}:${{ steps.gettagimage.outputs.TAG_NAME }}'
 
       - name: 'Use output'
         run: 'curl "${{ steps.deploy.outputs.url }}"'
