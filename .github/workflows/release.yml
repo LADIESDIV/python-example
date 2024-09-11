@@ -1,7 +1,9 @@
 name: Semantic Release
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
