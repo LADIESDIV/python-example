@@ -25,6 +25,7 @@ repos:
     hooks:
       - id: editorconfig-checker-system # Check editorconfig compliance
         alias: ec
+        exclude: ^docker/
   - repo: local
     hooks:
       - id: black

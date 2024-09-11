@@ -31,4 +31,3 @@ fileExistenceTests:
   - name: 'venv activate file'
     path: '/opt/venv/bin/activate'
     shouldExist: true
-    
