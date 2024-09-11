@@ -20,12 +20,6 @@ repos:
       - id: detect-private-key # Check for the existence of private keys
       - id: check-executables-have-shebangs # Checks that executables have shebangs
         exclude: ^shared/bats-libs/.*
-  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 3.0.3
-    hooks:
-      - id: editorconfig-checker-system # Check editorconfig compliance
-        alias: ec
-        exclude: ^docker/
   - repo: local
     hooks:
       - id: black
