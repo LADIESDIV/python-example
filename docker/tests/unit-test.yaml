@@ -1,0 +1,22 @@
+commandTests:
+
+# check that the python binary is in the correct location
+  - name: "python installation"
+    command: "which"
+    args: ["python"]
+    expectedOutput: ["/usr/bin/python\n"]
+
+# setup a virtualenv, and verify the correct python binary is run
+  - name: "python in virtualenv"
+    setup: [["virtualenv", "/env"]]
+    command: "which"
+    args: ["python"]
+    expectedOutput: ["/env/bin/python\n"]
+
+# setup a virtualenv, install flask, and verify the installation
+  - name: "flask"
+    setup: [["virtualenv", "/env"],
+            ["pip", "install", "gunicorn", "flask"]]
+    command: "which"
+    args: ["gunicorn"]
+    expectedOutput: ["/env/bin/gunicorn"]

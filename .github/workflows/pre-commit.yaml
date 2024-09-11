@@ -36,6 +36,9 @@ jobs:
           virtualenvs-in-project: true
           virtualenvs-path: .venv
           installer-parallel: true
+      
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+        name: install ec
 
       - run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
