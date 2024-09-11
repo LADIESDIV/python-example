@@ -17,11 +17,15 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - uses: actions/setup-python@v4
+      - name: "Set up Cloud SDK"
+        uses: google-github-actions/setup-gcloud@v2
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - name: Run image
-        uses: abatilo/actions-poetry@v3.0.0
+          python-version-file: ".python-version"
+          cache-dependency-path: "poetry.lock"
+      - name: Setup poetry
+        uses: abatilo/actions-poetry@v3
         with:
           poetry-version: "1.8.3"
 

@@ -13,7 +13,7 @@ env:
   PROJECT_ID: lille-zenbox-adeo-2024
   REGISTRY: eu.gcr.io
   IMAGE_NAME: python-example
-  PATH_DOCKERFILE: ./Dockerfile
+  PATH_DOCKERFILE: ./docker/Dockerfile
 
 permissions:
   id-token: write
