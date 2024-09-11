@@ -13,7 +13,7 @@ jobs:
       - name: Lint Helm
         uses: WyriHaximus/github-action-helm3@v3
         with:
-          exec: helm lint ./.helm/
+          exec: helm lint ./helm/
       - name: Lint Helm
         uses: WyriHaximus/github-action-helm3@v3
         with:
@@ -21,4 +21,4 @@ jobs:
       - name: Helm unittest
         uses: WyriHaximus/github-action-helm3@v3
         with:
-          exec: helm unittest ./.helm/
+          exec: helm unittest ./helm/

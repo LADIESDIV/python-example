@@ -29,10 +29,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12.0'
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1
         with:
@@ -40,6 +36,11 @@ jobs:
           virtualenvs-in-project: true
           virtualenvs-path: .venv
           installer-parallel: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.0'
 
       - run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
