@@ -1,6 +1,10 @@
 should pass all kinds of assertion:
   1: |
     replicas: 1
+    selector:
+      matchLabels:
+        app: python-example
+        release: RELEASE-NAME
     template:
       metadata:
         labels:

@@ -1,4 +1,4 @@
-name: CI
+name: helm
 on:
   pull_request:
     branches:
@@ -14,7 +14,7 @@ jobs:
         uses: WyriHaximus/github-action-helm3@v3
         with:
           exec: helm lint ./helm/
-      - name: Lint Helm
+      - name: install Helm unittest
         uses: WyriHaximus/github-action-helm3@v3
         with:
           exec: helm plugin install https://github.com/helm-unittest/helm-unittest.git
