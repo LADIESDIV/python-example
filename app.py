@@ -3,6 +3,9 @@
 Returns:
     _type_: _description_
 """
+
+import os
+
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -114,4 +117,4 @@ def drink_beer():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    app.run(debug=os.environ["ENV"] == "dev", host="0.0.0.0", port=8080)
