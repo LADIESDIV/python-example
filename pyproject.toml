@@ -33,7 +33,7 @@ requires-python = ">=3.9"
 
 [tool.poetry]
 name = "python-example"
-version = "0.0.0"
+version = "0.0.1"
 description = "To be tests"
 keywords = ["example"]
 authors = [
