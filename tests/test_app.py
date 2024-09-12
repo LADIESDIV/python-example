@@ -3,6 +3,7 @@
 Yields:
     _type_: _description_
 """
+
 import pytest
 
 from app import app

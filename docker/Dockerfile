@@ -38,5 +38,6 @@ EXPOSE 8080
 ENV FLASK_APP app.py
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
+ENV ENV="prod"
 
 CMD ["python", "app.py", "-h", "0.0.0.0"]

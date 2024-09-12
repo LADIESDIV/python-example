@@ -1,4 +1,5 @@
 """Add beer in file."""
+
 import json
 from pathlib import Path
 

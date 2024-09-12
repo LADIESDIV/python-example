@@ -27,7 +27,7 @@ minor_tags = ["feat", ":sparkles:"]
 patch_tags = ["fix", ":nut_and_bolt:", ":wrench:"]
 
 [project]
-requires-python = ">=3.9"
+requires-python = ">=3.12.0"
 
 [tool.poetry]
 name = "python-example"
@@ -113,7 +113,8 @@ select = [
 
 ignore = [
   "D107",
-  "S104"
+  "S104",
+  "RUF200"
 ]
 
 [tool.ruff.per-file-ignores]
