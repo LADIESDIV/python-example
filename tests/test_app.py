@@ -9,6 +9,7 @@ import pytest
 from app import app
 
 
+#replace part of code ie flask
 @pytest.fixture
 def client():
     """Mock flask app.
@@ -19,6 +20,7 @@ def client():
     app.config.update({"TESTING": True})
 
     with app.test_client() as client:
+        #test client flask mock
         yield client
 
 
