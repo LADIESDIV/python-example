@@ -34,7 +34,7 @@ requires-python = ">=3.9"
 [tool.poetry]
 name = "python-example"
 version = "0.0.0"
-description = "To be filled"
+description = "To be tests"
 keywords = ["example"]
 authors = [
   "Laetitia Diverchy <laeti.diverchy@gmail.com>",
