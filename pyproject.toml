@@ -32,7 +32,7 @@ requires-python = ">=3.9"
 [tool.poetry]
 name = "python-example"
 version = "0.0.0"
-description = "To be filled"
+description = "To be tests"
 keywords = ["example"]
 authors = [
   "Laetitia Diverchy <laeti.diverchy@gmail.com>",
@@ -46,27 +46,27 @@ readme = "README.md"
 python = "^3.12.0"
 requests = "^2.31.0"
 Flask = "^3.0.3"
-simplejson = "^3.17"
+simplejson = "^3.19.3"
 setuptools = "70.*"
 urllib3 = "1.26.18"
 
 [tool.poetry.group.dev.dependencies]
-tox = "^3.27"
-pylint = "^2.15"
+tox = "^3.28"
+pylint = "^2.17.7"
 black = "^22.10"
 isort = "^5.10"
 coverage = "^4.5.4"
 tavern = "^2.11.0"
 pytest = "^7.2"
-pytest-mock = "^3.11.1"
-freezegun = "^1.2"
+pytest-mock = "^3.14"
+freezegun = "^1.5.1"
 flake8 = "^6.0.0"
-flake8-bugbear = "^22.12"
-flake8-docstrings = "^1.6"
-flake8-typing-imports = "^1.14"
-pep8-naming = "^0.13"
+flake8-bugbear = "^22.12.6"
+flake8-docstrings = "^1.7.0"
+flake8-typing-imports = "^1.15"
+pep8-naming = "^0.13.3"
 ruff = "^0.0.243"
-pre-commit = "^3.0.4"
+pre-commit = "^3.8.0"
 
 [build-system]
 requires = ["poetry-core"]

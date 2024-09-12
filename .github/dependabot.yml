@@ -12,4 +12,13 @@ updates:
     commit-message:
       include: "scope"
       prefix: "chore"
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "13:00"
+    groups:
+      python-packages:
+        patterns:
+          - "*"
 
