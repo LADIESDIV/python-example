@@ -33,7 +33,7 @@ jobs:
       uses: python-semantic-release/python-semantic-release@v9.8.8
       with:
         github_token: ${{ env.GITHUB_TOKEN }}
-        root_options: ${{ env.opt_arg }}
         directory: ${{ env.directory }}
+        root_options: "-vv"
       env:
         GH_TOKEN: ${{ env.GITHUB_TOKEN }}
