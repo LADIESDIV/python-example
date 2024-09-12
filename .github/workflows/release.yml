@@ -3,7 +3,7 @@ name: Semantic Release
 on:
   push:
     branches:
-      - fix/release
+      - main
 
 permissions:
   id-token: write
@@ -22,24 +22,18 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        ref: fix/release
         token: ${{ env.GITHUB_TOKEN }}
-
     - name: Install semantic release
       id: inst
       shell: bash
       run: |
         python3 -m pip install python-semantic-release
         echo "go to release"
-        echo "email=$(git log -n 1 --pretty=format:%ae)" >> $GITHUB_OUTPUT
     - name: Python Semantic Release
       id: release
       uses: python-semantic-release/python-semantic-release@v8.3.0
       with:
         github_token: ${{ env.GITHUB_TOKEN }}
         directory: ${{ env.directory }}
-        root_options: "-vv"
         git_committer_email: ${{ secrets.mail }}
-        git_committer_name: oidc-pat-exchange
-      env:
-        GH_TOKEN: ${{ env.GITHUB_TOKEN }}
+        git_committer_name: release
