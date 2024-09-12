@@ -35,7 +35,7 @@ jobs:
         github_token: ${{ env.GITHUB_TOKEN }}
         directory: ${{ env.directory }}
         root_options: "-vv"
-        git_committer_email: ${{ secret.mail }}
+        git_committer_email: ${{ secrets.mail }}
         git_committer_name: oidc-pat-exchange
       env:
         GH_TOKEN: ${{ env.GITHUB_TOKEN }}
