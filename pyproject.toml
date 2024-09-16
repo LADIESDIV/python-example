@@ -47,8 +47,8 @@ python = "^3.12.0"
 requests = "^2.31.0"
 Flask = "^3.0.3"
 simplejson = "^3.19.3"
-setuptools = "74.*"
-urllib3 = "2.2.2"
+setuptools = "75.*"
+urllib3 = "2.2.3"
 
 [tool.poetry.group.dev.dependencies]
 tox = "^4.18"
