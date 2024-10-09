@@ -66,7 +66,7 @@ flake8-docstrings = "^1.7.0"
 flake8-typing-imports = "^1.15"
 pep8-naming = "^0.14.1"
 ruff = "^0.6.4"
-pre-commit = "^3.8.0"
+pre-commit = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core"]
