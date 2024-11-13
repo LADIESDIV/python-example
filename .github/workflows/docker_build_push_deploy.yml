@@ -52,7 +52,7 @@ jobs:
         run: echo ${{ steps.gettagimage.outputs.TAG_NAME }}
       - name: Authenticate to Google Cloud
         id: auth
-        uses: google-github-actions/auth@v2.1.5
+        uses: google-github-actions/auth@v2.1.7
         with:
           workload_identity_provider: 'projects/585501833219/locations/global/workloadIdentityPools/github-action-sandbox-ldy/providers/github-provider'
           project_id: ${{ env.PROJECT_ID }}
