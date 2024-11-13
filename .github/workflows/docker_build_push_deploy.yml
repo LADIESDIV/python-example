@@ -42,7 +42,7 @@ jobs:
         with:
           name: requirements
       - name: Github Slug Action
-        uses: rlespinasse/github-slug-action@v4.5.0
+        uses: rlespinasse/github-slug-action@v5.0.0
       - name: Get tag image
         run: |
           if [[ ${{ github.event_name }} = 'release' ]]; then TAG_NAME=$GITHUB_REF_SLUG; else TAG_NAME=$GITHUB_HEAD_REF_SLUG-${GIT_SHA:0:7}-$(date +%s); fi;
