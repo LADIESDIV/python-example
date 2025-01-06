@@ -48,7 +48,7 @@ requests = "^2.31.0"
 Flask = "^3.0.3"
 simplejson = "^3.19.3"
 setuptools = "75.*"
-urllib3 = "2.2.3"
+urllib3 = "2.3.0"
 
 [tool.poetry.group.dev.dependencies]
 tox = "^4.18"
@@ -65,7 +65,7 @@ flake8-bugbear = "^24.8.19"
 flake8-docstrings = "^1.7.0"
 flake8-typing-imports = "^1.15"
 pep8-naming = "^0.14.1"
-ruff = "^0.7.3"
+ruff = "^0.8.6"
 pre-commit = "^4.0.1"
 
 [build-system]
